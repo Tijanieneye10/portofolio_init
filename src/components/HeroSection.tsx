@@ -66,13 +66,13 @@ export default function HeroSection({ author }: HeroSectionProps) {
             <div className="absolute inset-0 bg-gray-200 dark:bg-gray-800 rounded-2xl transform -rotate-3"></div>
             
             {/* Main Image Container */}
-            <div className="relative w-full h-full rounded-xl overflow-hidden shadow-2xl bg-white dark:bg-gray-900 flex items-end justify-center">
+            <div className="relative w-full h-full rounded-xl overflow-hidden shadow-2xl bg-white dark:bg-gray-900 mt-8">
               {author?.image ? (
                 <Image
                   src={urlFor(author.image).url()}
                   alt={author.name}
                   fill
-                  className="object-contain object-bottom"
+                  className="object-cover object-top"
                   priority
                 />
               ) : (
