@@ -76,11 +76,6 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* Testimonials */}
-      {testimonials?.length > 0 && (
-        <TestimonialsSection testimonials={testimonials} />
-      )}
-
       {/* Recent Blog Posts */}
       <section className="space-y-8">
         <div className="flex justify-between items-center">
@@ -104,6 +99,11 @@ export default async function Home() {
           )}
         </div>
       </section>
+
+      {/* Testimonials */}
+      {testimonials?.length > 0 && (
+        <TestimonialsSection testimonials={testimonials} />
+      )}
     </div>
   );
 }
