@@ -6,8 +6,10 @@ import Footer from "./Footer";
 
 export default function LayoutWrapper({
   children,
+  socialLinks,
 }: {
   children: React.ReactNode;
+  socialLinks?: string[];
 }) {
   const pathname = usePathname();
   const isStudio = pathname?.startsWith("/studio");
@@ -22,7 +24,7 @@ export default function LayoutWrapper({
       <main className="flex-grow container mx-auto px-4 py-8">
         {children}
       </main>
-      <Footer />
+      <Footer socialLinks={socialLinks} />
     </div>
   );
 }

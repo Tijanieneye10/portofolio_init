@@ -51,25 +51,6 @@ export default function HeroSection({ author }: HeroSectionProps) {
               About Me
             </Link>
           </div>
-
-          <div className="flex gap-6 pt-8 border-t border-gray-100 dark:border-gray-800">
-            {author?.socialLinks?.map((link, i) => {
-              const Icon = link.includes('github') ? FaGithub : 
-                           link.includes('linkedin') ? FaLinkedin : 
-                           FaTwitter;
-              return (
-                <a 
-                  key={i} 
-                  href={link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors text-2xl"
-                >
-                  <Icon />
-                </a>
-              );
-            })}
-          </div>
         </motion.div>
 
         {/* Right Column: Image */}

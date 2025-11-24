@@ -3,6 +3,8 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import LayoutWrapper from "@/components/LayoutWrapper";
+import { client } from "@/sanity/lib/client";
+import { authorQuery } from "@/lib/sanity-queries";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,11 +29,13 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const author = await client.fetch(authorQuery);
+
   return (
     <html lang="en" suppressHydrationWarning>
       <body
@@ -43,7 +47,9 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <LayoutWrapper>{children}</LayoutWrapper>
+          <LayoutWrapper socialLinks={author?.socialLinks}>
+            {children}
+          </LayoutWrapper>
         </ThemeProvider>
       </body>
     </html>
