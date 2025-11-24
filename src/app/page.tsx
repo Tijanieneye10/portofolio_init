@@ -1,65 +1,102 @@
-import Image from "next/image";
+import Link from "next/link";
+import { client } from "@/sanity/lib/client";
+import { postsQuery, projectsQuery, authorQuery } from "@/lib/sanity-queries";
+import ProjectCard from "@/components/ProjectCard";
+import BlogCard from "@/components/BlogCard";
+import HeroSection from "@/components/HeroSection";
+import { FaCode, FaServer, FaDatabase, FaCloud, FaBrain } from "react-icons/fa";
 
-export default function Home() {
+// Revalidate data every 60 seconds
+export const revalidate = 60;
+
+export default async function Home() {
+  const posts = await client.fetch(postsQuery);
+  const projects = await client.fetch(projectsQuery);
+  const author = await client.fetch(authorQuery);
+
+  // Filter for featured or take first 3
+  const featuredProjects = projects.slice(0, 3);
+  const recentPosts = posts.slice(0, 3);
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <div className="space-y-20">
+      {/* Hero Section */}
+      <HeroSection author={author} />
+
+      {/* Tech Stack */}
+      <section className="space-y-8">
+        <h2 className="text-3xl font-bold text-center">Tech Stack</h2>
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-8 max-w-5xl mx-auto text-center">
+          <div className="flex flex-col items-center gap-3 p-6 rounded-xl bg-gray-50 dark:bg-gray-800/50">
+            <FaCode className="text-4xl text-blue-500" />
+            <span className="font-medium">PHP & Laravel</span>
+          </div>
+          <div className="flex flex-col items-center gap-3 p-6 rounded-xl bg-gray-50 dark:bg-gray-800/50">
+            <FaServer className="text-4xl text-cyan-500" />
+            <span className="font-medium">Go (Golang)</span>
+          </div>
+          <div className="flex flex-col items-center gap-3 p-6 rounded-xl bg-gray-50 dark:bg-gray-800/50">
+            <FaDatabase className="text-4xl text-green-500" />
+            <span className="font-medium">Python</span>
+          </div>
+          <div className="flex flex-col items-center gap-3 p-6 rounded-xl bg-gray-50 dark:bg-gray-800/50">
+            <FaCloud className="text-4xl text-yellow-500" />
+            <span className="font-medium">DevOps & Cloud</span>
+          </div>
+          <div className="flex flex-col items-center gap-3 p-6 rounded-xl bg-gray-50 dark:bg-gray-800/50">
+            <FaBrain className="text-4xl text-purple-500" />
+            <span className="font-medium">Agentic AI</span>
+          </div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+      </section>
+
+      {/* Featured Projects */}
+      <section className="space-y-8">
+        <div className="flex justify-between items-center">
+          <h2 className="text-3xl font-bold">Featured Projects</h2>
+          <Link
+            href="/projects"
+            className="text-blue-600 dark:text-blue-400 hover:underline"
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+            View all &rarr;
+          </Link>
         </div>
-      </main>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {featuredProjects.length > 0 ? (
+            featuredProjects.map((project: any) => (
+              <ProjectCard key={project._id} project={project} />
+            ))
+          ) : (
+            <div className="col-span-full text-center py-12 text-gray-500">
+              Projects coming soon...
+            </div>
+          )}
+        </div>
+      </section>
+
+      {/* Recent Blog Posts */}
+      <section className="space-y-8">
+        <div className="flex justify-between items-center">
+          <h2 className="text-3xl font-bold">Recent Articles</h2>
+          <Link
+            href="/blog"
+            className="text-blue-600 dark:text-blue-400 hover:underline"
+          >
+            Read all &rarr;
+          </Link>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {recentPosts.length > 0 ? (
+            recentPosts.map((post: any) => (
+              <BlogCard key={post._id} post={post} />
+            ))
+          ) : (
+            <div className="col-span-full text-center py-12 text-gray-500">
+              Blog posts coming soon...
+            </div>
+          )}
+        </div>
+      </section>
     </div>
   );
 }
