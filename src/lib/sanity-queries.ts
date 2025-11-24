@@ -53,3 +53,12 @@ export const experiencesQuery = groq`*[_type == "experience"] | order(startDate 
   description,
   logo
 }`;
+
+export const testimonialsQuery = groq`*[_type == "testimonial"] {
+  _id,
+  name,
+  role,
+  company,
+  image,
+  message
+}`;

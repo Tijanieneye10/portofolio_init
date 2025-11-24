@@ -1,9 +1,10 @@
 import Link from "next/link";
 import { client } from "@/sanity/lib/client";
-import { postsQuery, projectsQuery, authorQuery } from "@/lib/sanity-queries";
+import { postsQuery, projectsQuery, authorQuery, testimonialsQuery } from "@/lib/sanity-queries";
 import ProjectCard from "@/components/ProjectCard";
 import BlogCard from "@/components/BlogCard";
 import HeroSection from "@/components/HeroSection";
+import TestimonialsSection from "@/components/TestimonialsSection";
 import { FaCode, FaServer, FaDatabase, FaCloud, FaBrain } from "react-icons/fa";
 
 // Revalidate data every 60 seconds
@@ -13,6 +14,7 @@ export default async function Home() {
   const posts = await client.fetch(postsQuery);
   const projects = await client.fetch(projectsQuery);
   const author = await client.fetch(authorQuery);
+  const testimonials = await client.fetch(testimonialsQuery);
 
   // Filter for featured or take first 3
   const featuredProjects = projects.slice(0, 3);
@@ -73,6 +75,11 @@ export default async function Home() {
           )}
         </div>
       </section>
+
+      {/* Testimonials */}
+      {testimonials?.length > 0 && (
+        <TestimonialsSection testimonials={testimonials} />
+      )}
 
       {/* Recent Blog Posts */}
       <section className="space-y-8">
