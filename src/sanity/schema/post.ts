@@ -52,8 +52,14 @@ export default defineType({
     }),
     defineField({
       name: 'body',
-      title: 'Body',
+      title: 'Body (Block Content)',
       type: 'blockContent',
+    }),
+    defineField({
+      name: 'content',
+      title: 'Content (Markdown)',
+      type: 'markdown',
+      description: 'Use this for Markdown content. If filled, this will take precedence over Body.',
     }),
   ],
   preview: {
@@ -68,5 +74,3 @@ export default defineType({
     },
   },
 })
-
-

@@ -20,7 +20,8 @@ export const postQuery = groq`*[_type == "post" && slug.current == $slug][0] {
   excerpt,
   "author": author->{name, image, bio},
   "tags": tags,
-  body
+  body,
+  content
 }`;
 
 export const projectsQuery = groq`*[_type == "project" && defined(slug.current)] | order(publishedAt desc) {

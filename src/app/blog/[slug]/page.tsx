@@ -1,17 +1,70 @@
 import { client } from "@/sanity/lib/client";
 import { postQuery, postsQuery } from "@/lib/sanity-queries";
-import { PortableText } from "next-sanity";
+import { PortableText, PortableTextComponents } from "@portabletext/react";
 import Image from "next/image";
 import { urlFor } from "@/sanity/lib/image";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { FaArrowLeft } from "react-icons/fa";
+import ReactMarkdown from "react-markdown";
 
 export const revalidate = 60;
 
 interface PageProps {
   params: Promise<{ slug: string }>;
 }
+
+// Inline components to guarantee they are used
+const components: PortableTextComponents = {
+  block: {
+    h1: ({ children }) => <h1 className="text-3xl md:text-4xl font-bold my-6">{children}</h1>,
+    h2: ({ children }) => <h2 className="text-2xl md:text-3xl font-bold my-5">{children}</h2>,
+    h3: ({ children }) => <h3 className="text-xl md:text-2xl font-bold my-4">{children}</h3>,
+    normal: ({ children }) => <p className="mb-4 leading-relaxed text-gray-700 dark:text-gray-300">{children}</p>,
+    blockquote: ({ children }) => (
+      <blockquote className="border-l-4 border-blue-500 pl-4 italic my-6 bg-gray-50 dark:bg-gray-800 py-2 rounded-r">
+        {children}
+      </blockquote>
+    ),
+  },
+  list: {
+    bullet: ({ children }) => <ul className="list-disc ml-6 mb-4 space-y-2">{children}</ul>,
+    number: ({ children }) => <ol className="list-decimal ml-6 mb-4 space-y-2">{children}</ol>,
+  },
+  types: {
+    image: ({ value }) => {
+      return (
+        <div className="relative w-full h-96 my-8 rounded-lg overflow-hidden">
+          <Image
+            src={urlFor(value).url()}
+            alt={value.alt || "Image"}
+            fill
+            className="object-cover"
+          />
+        </div>
+      );
+    },
+  },
+  marks: {
+    link: ({ children, value }) => {
+      return (
+        <a
+          href={value.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-blue-600 hover:underline"
+        >
+          {children}
+        </a>
+      );
+    },
+    code: ({ children }) => (
+      <code className="bg-gray-100 dark:bg-gray-800 px-1.5 py-0.5 rounded text-sm font-mono text-red-600 dark:text-red-400">
+        {children}
+      </code>
+    ),
+  },
+};
 
 export async function generateStaticParams() {
   const posts = await client.fetch(postsQuery);
@@ -45,7 +98,7 @@ export default async function BlogPostPage({ params }: PageProps) {
   }
 
   return (
-    <article className="max-w-3xl mx-auto">
+    <article className="max-w-3xl mx-auto py-8 px-4">
       <Link
         href="/blog"
         className="inline-flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 mb-8 transition-colors"
@@ -107,11 +160,16 @@ export default async function BlogPostPage({ params }: PageProps) {
         </div>
       )}
 
-      <div className="prose prose-lg dark:prose-invert max-w-none">
-        <PortableText value={post.body} />
+      {/* Main Content Area */}
+      <div className="mt-8">
+        {post.content ? (
+          <div className="prose dark:prose-invert max-w-none">
+            <ReactMarkdown>{post.content}</ReactMarkdown>
+          </div>
+        ) : (
+          <PortableText value={post.body} components={components} />
+        )}
       </div>
     </article>
   );
 }
-
-
