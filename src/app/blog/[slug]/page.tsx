@@ -17,10 +17,20 @@ interface PageProps {
 // Inline components to guarantee they are used
 const components: PortableTextComponents = {
   block: {
-    h1: ({ children }) => <h1 className="text-3xl md:text-4xl font-bold my-6">{children}</h1>,
-    h2: ({ children }) => <h2 className="text-2xl md:text-3xl font-bold my-5">{children}</h2>,
-    h3: ({ children }) => <h3 className="text-xl md:text-2xl font-bold my-4">{children}</h3>,
-    normal: ({ children }) => <p className="mb-4 leading-relaxed text-gray-700 dark:text-gray-300">{children}</p>,
+    h1: ({ children }) => (
+      <h1 className="text-3xl md:text-4xl font-bold my-6">{children}</h1>
+    ),
+    h2: ({ children }) => (
+      <h2 className="text-2xl md:text-3xl font-bold my-5">{children}</h2>
+    ),
+    h3: ({ children }) => (
+      <h3 className="text-xl md:text-2xl font-bold my-4">{children}</h3>
+    ),
+    normal: ({ children }) => (
+      <p className="mb-4 leading-relaxed text-gray-700 dark:text-gray-300">
+        {children}
+      </p>
+    ),
     blockquote: ({ children }) => (
       <blockquote className="border-l-4 border-blue-500 pl-4 italic my-6 bg-gray-50 dark:bg-gray-800 py-2 rounded-r">
         {children}
@@ -28,8 +38,12 @@ const components: PortableTextComponents = {
     ),
   },
   list: {
-    bullet: ({ children }) => <ul className="list-disc ml-6 mb-4 space-y-2">{children}</ul>,
-    number: ({ children }) => <ol className="list-decimal ml-6 mb-4 space-y-2">{children}</ol>,
+    bullet: ({ children }) => (
+      <ul className="list-disc ml-6 mb-4 space-y-2">{children}</ul>
+    ),
+    number: ({ children }) => (
+      <ol className="list-decimal ml-6 mb-4 space-y-2">{children}</ol>
+    ),
   },
   types: {
     image: ({ value }) => {
@@ -76,7 +90,7 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: PageProps) {
   const { slug } = await params;
   const post = await client.fetch(postQuery, { slug });
-  
+
   if (!post) {
     return {
       title: "Post Not Found",
@@ -117,7 +131,7 @@ export default async function BlogPostPage({ params }: PageProps) {
             </span>
           ))}
         </div>
-        
+
         <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white leading-tight">
           {post.title}
         </h1>

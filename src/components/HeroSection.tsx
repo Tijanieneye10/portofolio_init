@@ -24,7 +24,7 @@ export default function HeroSection({ author }: HeroSectionProps) {
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5 }}
-          className="space-y-6 text-left"
+          className="space-y-6 text-left order-2 md:order-1"
         >
           
           <h1 className="text-5xl md:text-7xl font-bold tracking-tight text-gray-900 dark:text-white leading-tight">
@@ -58,15 +58,15 @@ export default function HeroSection({ author }: HeroSectionProps) {
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5, delay: 0.2 }}
-          className="relative hidden md:block"
+          className="relative block order-1 md:order-2"
         >
-          <div className="relative w-[400px] h-[500px] mx-auto">
+          <div className="relative w-full max-w-[300px] md:max-w-[400px] aspect-square md:aspect-[4/5] mx-auto">
             {/* Decorative background element */}
-            <div className="absolute inset-0 bg-gradient-to-tr from-blue-600 to-cyan-400 rounded-2xl transform rotate-6 opacity-20 blur-lg"></div>
-            <div className="absolute inset-0 bg-gray-200 dark:bg-gray-800 rounded-2xl transform -rotate-3"></div>
+            <div className="absolute inset-0 bg-gradient-to-tr from-blue-600 to-cyan-400 rounded-full md:rounded-2xl transform rotate-6 opacity-20 blur-lg"></div>
+            <div className="absolute inset-0 bg-gray-200 dark:bg-gray-800 rounded-full md:rounded-2xl transform -rotate-3"></div>
             
             {/* Main Image Container */}
-            <div className="relative w-full h-full rounded-xl overflow-hidden shadow-2xl bg-white dark:bg-gray-900 mt-8">
+            <div className="relative w-full h-full rounded-full md:rounded-xl overflow-hidden shadow-2xl bg-white dark:bg-gray-900 md:mt-8">
               {author?.image ? (
                 <Image
                   src={urlFor(author.image).url()}

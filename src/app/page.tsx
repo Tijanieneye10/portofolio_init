@@ -5,7 +5,7 @@ import ProjectCard from "@/components/ProjectCard";
 import BlogCard from "@/components/BlogCard";
 import HeroSection from "@/components/HeroSection";
 import TestimonialsSection from "@/components/TestimonialsSection";
-import { FaCode, FaServer, FaDatabase, FaCloud, FaBrain } from "react-icons/fa";
+import { FaCode, FaServer, FaDatabase, FaCloud, FaBrain, FaLinux } from "react-icons/fa";
 
 // Revalidate data every 60 seconds
 export const revalidate = 60;
@@ -48,6 +48,10 @@ export default async function Home() {
           <div className="flex flex-col items-center gap-3 p-6 rounded-xl bg-gray-50 dark:bg-gray-800/50">
             <FaBrain className="text-4xl text-purple-500" />
             <span className="font-medium">Agentic AI</span>
+          </div>
+          <div className="flex flex-col items-center gap-3 p-6 rounded-xl bg-gray-50 dark:bg-gray-800/50 md:hidden">
+            <FaLinux className="text-4xl text-black dark:text-white" />
+            <span className="font-medium">Linux</span>
           </div>
         </div>
       </section>
