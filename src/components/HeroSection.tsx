@@ -66,7 +66,7 @@ export default function HeroSection({ author }: HeroSectionProps) {
             <div className="absolute inset-0 bg-gray-200 dark:bg-gray-800 rounded-full md:rounded-2xl transform -rotate-3"></div>
             
             {/* Main Image Container */}
-            <div className="relative w-full h-full rounded-full md:rounded-xl overflow-hidden shadow-2xl bg-white dark:bg-gray-900 md:mt-8">
+            <div className="relative w-full h-full rounded-full md:rounded-xl overflow-hidden shadow-2xl bg-white dark:bg-gray-900 md:mt-8 border-4 border-white dark:border-gray-800 md:border-0">
               {author?.image ? (
                 <Image
                   src={urlFor(author.image).url()}
