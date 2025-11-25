@@ -17,12 +17,13 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_URL || "https://tijani-usman.vercel.app"), // Replace with your production URL
   title: "My Portfolio",
   description: "Software Engineer & DevOps Specialist Portfolio",
   openGraph: {
     title: "My Portfolio",
     description: "Software Engineer & DevOps Specialist Portfolio",
-    url: "https://myportfolio.com",
+    url: "/",
     siteName: "My Portfolio",
     images: [
       {
