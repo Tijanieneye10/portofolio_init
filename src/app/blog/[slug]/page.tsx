@@ -7,6 +7,9 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { FaArrowLeft } from "react-icons/fa";
 import ReactMarkdown from "react-markdown";
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
+import { dracula } from "react-syntax-highlighter/dist/esm/styles/prism";
+import { ComponentPropsWithoutRef } from "react";
 
 export const revalidate = 60;
 
@@ -82,7 +85,7 @@ const components: PortableTextComponents = {
 
 export async function generateStaticParams() {
   const posts = await client.fetch(postsQuery);
-  return posts.map((post: any) => ({
+  return posts.map((post: { slug: { current: string } }) => ({
     slug: post.slug.current,
   }));
 }
@@ -178,7 +181,35 @@ export default async function BlogPostPage({ params }: PageProps) {
       <div className="mt-8">
         {post.content ? (
           <div className="prose dark:prose-invert max-w-none">
-            <ReactMarkdown>{post.content}</ReactMarkdown>
+            <ReactMarkdown
+              components={{
+                code({
+                  inline,
+                  className,
+                  children,
+                  ...props
+                }: ComponentPropsWithoutRef<"code"> & { inline?: boolean }) {
+                  const match = /language-(\w+)/.exec(className || "");
+                  return !inline && match ? (
+                    <SyntaxHighlighter
+                      // @ts-expect-error - react-syntax-highlighter types are slightly incompatible with react types
+                      style={dracula}
+                      language={match[1]}
+                      PreTag="div"
+                      {...props}
+                    >
+                      {String(children).replace(/\n$/, "")}
+                    </SyntaxHighlighter>
+                  ) : (
+                    <code className={className} {...props}>
+                      {children}
+                    </code>
+                  );
+                },
+              }}
+            >
+              {post.content}
+            </ReactMarkdown>
           </div>
         ) : (
           <PortableText value={post.body} components={components} />
