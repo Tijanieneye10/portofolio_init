@@ -3,7 +3,7 @@ import { client } from "@/sanity/lib/client";
 import { postsQuery, projectsQuery } from "@/lib/sanity-queries";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = 'https://your-portfolio-url.com'; // Replace with actual URL
+  const baseUrl = process.env.NEXT_PUBLIC_URL || "https://tijani-usman.vercel.app";
 
   const posts = await client.fetch(postsQuery);
   const projects = await client.fetch(projectsQuery);
@@ -39,6 +39,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...projectUrls,
   ];
 }
+
 
 
 

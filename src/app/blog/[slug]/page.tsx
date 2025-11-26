@@ -100,6 +100,10 @@ export async function generateMetadata({ params }: PageProps) {
     };
   }
 
+  const ogImage = post.mainImage
+    ? urlFor(post.mainImage).width(1200).height(630).format("jpg").url()
+    : null;
+
   return {
     title: `${post.title} - Portfolio Blog`,
     description: post.excerpt,
@@ -109,24 +113,22 @@ export async function generateMetadata({ params }: PageProps) {
       type: "article",
       publishedTime: post.publishedAt,
       authors: [post.author?.name || "Unknown Author"],
-      images: post.mainImage
+      images: ogImage
         ? [
             {
-              url: urlFor(post.mainImage).width(1200).height(630).url(),
+              url: ogImage,
               width: 1200,
               height: 630,
               alt: post.title,
             },
           ]
-        : [],
+        : undefined,
     },
     twitter: {
       card: "summary_large_image",
       title: post.title,
       description: post.excerpt,
-      images: post.mainImage
-        ? [urlFor(post.mainImage).width(1200).height(630).url()]
-        : [],
+      images: ogImage ? [ogImage] : undefined,
     },
   };
 }
