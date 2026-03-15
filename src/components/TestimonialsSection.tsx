@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import { urlFor } from "@/sanity/lib/image";
-import { FaQuoteLeft } from "react-icons/fa";
 
 interface Testimonial {
   _id: string;
@@ -15,29 +14,34 @@ interface Testimonial {
 
 export default function TestimonialsSection({ testimonials }: { testimonials: Testimonial[] }) {
   return (
-    <section className="py-16 md:py-28 bg-gradient-to-b from-white to-gray-50 dark:from-black dark:to-gray-900">
+    <section className="py-16 md:py-24">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-16 space-y-4">
-          <h2 className="text-3xl md:text-4xl font-bold">
-            What People Say About Me
+        <div className="mb-12 font-mono">
+          <div className="text-green-600 dark:text-green-700 text-sm mb-2">
+            <span className="text-green-500 dark:text-green-600">$</span> cat /var/log/testimonials.log
+          </div>
+          <h2 className="text-2xl md:text-3xl font-bold text-green-800 dark:text-green-400 text-glow">
+            Testimonials
           </h2>
-          <div className="h-1 w-20 bg-blue-600 mx-auto rounded-full"></div>
+          <div className="h-px w-full bg-green-900/30 mt-4" />
         </div>
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {testimonials?.map((testimonial) => (
-            <div 
-              key={testimonial._id} 
-              className="bg-white dark:bg-gray-800/50 p-8 rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300 relative border border-gray-100 dark:border-gray-700"
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {testimonials?.map((testimonial, index) => (
+            <div
+              key={testimonial._id}
+              className="rounded-lg border border-green-900/30 dark:border-green-900/40 bg-gray-50 dark:bg-[#0a0f0a] p-6 hover:border-green-600/50 dark:hover:border-green-500/50 transition-all font-mono"
             >
-              <FaQuoteLeft className="text-blue-500/20 text-5xl mb-6" />
-              
-              <p className="text-gray-600 dark:text-gray-300 mb-8 text-lg leading-relaxed relative z-10">
-                "{testimonial.message}"
+              <div className="text-green-600 dark:text-green-700 text-[10px] mb-4">
+                [{String(index).padStart(3, "0")}] {new Date().toISOString().split("T")[0]} INFO
+              </div>
+
+              <p className="text-sm text-green-800/80 dark:text-green-500/80 mb-6 leading-relaxed">
+                &quot;{testimonial.message}&quot;
               </p>
-              
-              <div className="flex items-center gap-4 border-t border-gray-100 dark:border-gray-700 pt-6">
-                <div className="relative w-14 h-14 rounded-full overflow-hidden bg-gray-200 dark:bg-gray-700 flex-shrink-0">
+
+              <div className="flex items-center gap-3 pt-4 border-t border-green-900/20">
+                <div className="relative w-10 h-10 rounded-full overflow-hidden bg-green-500/10 flex-shrink-0 border border-green-900/30">
                   {testimonial.image ? (
                     <Image
                       src={urlFor(testimonial.image).url()}
@@ -46,20 +50,17 @@ export default function TestimonialsSection({ testimonials }: { testimonials: Te
                       className="object-cover"
                     />
                   ) : (
-                    <div className="w-full h-full flex items-center justify-center text-xl font-bold text-gray-400 bg-gray-100 dark:bg-gray-800">
+                    <div className="w-full h-full flex items-center justify-center text-sm font-bold text-green-600">
                       {testimonial.name.charAt(0)}
                     </div>
                   )}
                 </div>
                 <div>
-                  <h4 className="font-bold text-gray-900 dark:text-white text-base">
+                  <h4 className="font-bold text-green-800 dark:text-green-400 text-sm">
                     {testimonial.name}
                   </h4>
-                  <p className="text-sm text-blue-600 dark:text-blue-400 font-medium">
-                    {testimonial.role}
-                  </p>
-                  <p className="text-xs text-gray-500 dark:text-gray-400">
-                    {testimonial.company}
+                  <p className="text-[10px] text-green-700 dark:text-green-600">
+                    {testimonial.role} @ {testimonial.company}
                   </p>
                 </div>
               </div>

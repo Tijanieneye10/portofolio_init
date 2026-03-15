@@ -47,6 +47,12 @@ export default defineType({
       ],
     }),
     defineField({
+      name: 'email',
+      title: 'Email',
+      type: 'string',
+      description: 'Contact email address',
+    }),
+    defineField({
       name: 'socialLinks',
       title: 'Social Links',
       type: 'array',

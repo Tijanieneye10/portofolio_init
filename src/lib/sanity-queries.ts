@@ -41,6 +41,7 @@ export const authorQuery = groq`*[_type == "author"][0] {
   title,
   bio,
   image,
+  email,
   socialLinks
 }`;
 

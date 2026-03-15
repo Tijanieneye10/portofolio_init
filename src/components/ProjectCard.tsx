@@ -1,7 +1,4 @@
-import Image from "next/image";
-import Link from "next/link";
 import { FaGithub, FaExternalLinkAlt } from "react-icons/fa";
-import { urlFor } from "@/sanity/lib/image";
 
 interface ProjectProps {
   project: {
@@ -17,21 +14,29 @@ interface ProjectProps {
 
 export default function ProjectCard({ project }: ProjectProps) {
   return (
-    <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 p-6 hover:border-blue-500 dark:hover:border-blue-400 transition-colors group flex flex-col h-full">
-      <div className="flex justify-between items-start mb-4">
-        <h3 className="text-xl font-bold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
-          {project.title}
-        </h3>
-        <div className="flex gap-3">
+    <div className="rounded-lg border border-green-900/30 dark:border-green-900/40 bg-gray-50 dark:bg-[#0a0f0a] overflow-hidden hover:border-green-600/50 dark:hover:border-green-500/50 transition-all group flex flex-col h-full">
+      {/* Title bar */}
+      <div className="flex items-center justify-between px-4 py-2 bg-gray-100 dark:bg-[#0d1a0d] border-b border-green-900/20">
+        <div className="flex items-center gap-2">
+          <div className="flex gap-1.5">
+            <div className="w-2.5 h-2.5 rounded-full bg-red-500/80" />
+            <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/80" />
+            <div className="w-2.5 h-2.5 rounded-full bg-green-500/80" />
+          </div>
+          <span className="text-[10px] text-green-700 dark:text-green-700 font-mono ml-1 truncate max-w-[150px]">
+            {project.title.toLowerCase().replace(/\s+/g, "-")}
+          </span>
+        </div>
+        <div className="flex gap-2">
           {project.githubUrl && (
             <a
               href={project.githubUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-gray-500 hover:text-black dark:hover:text-white transition-colors"
+              className="text-green-700 dark:text-green-700 hover:text-green-500 dark:hover:text-green-400 transition-colors"
               aria-label="GitHub Code"
             >
-              <FaGithub size={20} />
+              <FaGithub size={14} />
             </a>
           )}
           {project.demoUrl && (
@@ -39,31 +44,43 @@ export default function ProjectCard({ project }: ProjectProps) {
               href={project.demoUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-gray-500 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+              className="text-green-700 dark:text-green-700 hover:text-green-500 dark:hover:text-green-400 transition-colors"
               aria-label="Live Demo"
             >
-              <FaExternalLinkAlt size={18} />
+              <FaExternalLinkAlt size={12} />
             </a>
           )}
         </div>
       </div>
 
-      <p className="text-gray-600 dark:text-gray-400 mb-6 line-clamp-3 flex-grow">
-        {project.description}
-      </p>
-      
-      <div className="flex flex-wrap gap-2 mt-auto">
-        {project.technologies?.map((tech) => (
-          <span
-            key={tech}
-            className="px-3 py-1 text-xs font-medium bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-full border border-gray-200 dark:border-gray-700"
-          >
-            {tech}
-          </span>
-        ))}
+      {/* Content */}
+      <div className="p-5 font-mono flex flex-col flex-grow">
+        <div className="text-green-600 dark:text-green-700 text-xs mb-2">
+          <span className="text-green-500 dark:text-green-600">$</span> cat README.md
+        </div>
+        <h3 className="text-lg font-bold text-green-800 dark:text-green-400 group-hover:text-glow-sm mb-3 transition-all">
+          {project.title}
+        </h3>
+        <p className="text-sm text-green-800/70 dark:text-green-500/70 mb-5 line-clamp-3 leading-relaxed flex-grow">
+          {project.description}
+        </p>
+
+        <div className="space-y-2 mt-auto">
+          <div className="text-green-600 dark:text-green-700 text-xs">
+            <span className="text-green-500 dark:text-green-600">$</span> cat stack.txt
+          </div>
+          <div className="flex flex-wrap gap-1.5">
+            {project.technologies?.map((tech) => (
+              <span
+                key={tech}
+                className="px-2 py-0.5 text-[10px] font-mono font-medium bg-green-500/5 dark:bg-green-500/10 text-green-700 dark:text-green-500 rounded border border-green-900/20 dark:border-green-900/30"
+              >
+                {tech}
+              </span>
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   );
 }
-
-

@@ -18,20 +18,20 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_URL || "https://tijani-usman.vercel.app"), // Replace with your production URL
-  title: "My Portfolio",
-  description: "Software Engineer & DevOps Specialist Portfolio",
+  metadataBase: new URL(process.env.NEXT_PUBLIC_URL || "https://tijani-usman.vercel.app"),
+  title: "TJ — Software Engineer",
+  description: "Fullstack Software Engineer & DevOps Specialist",
   openGraph: {
-    title: "My Portfolio",
-    description: "Software Engineer & DevOps Specialist Portfolio",
+    title: "TJ — Software Engineer",
+    description: "Fullstack Software Engineer & DevOps Specialist",
     url: "/",
-    siteName: "My Portfolio",
+    siteName: "TJ Portfolio",
     images: [
       {
         url: "/profile.jpg",
         width: 1200,
         height: 630,
-        alt: "My Portfolio",
+        alt: "TJ Portfolio",
       },
     ],
     locale: "en_US",
@@ -39,8 +39,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "My Portfolio",
-    description: "Software Engineer & DevOps Specialist Portfolio",
+    title: "TJ — Software Engineer",
+    description: "Fullstack Software Engineer & DevOps Specialist",
     images: ["/profile.jpg"],
   },
   icons: {
