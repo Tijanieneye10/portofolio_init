@@ -19,6 +19,9 @@ export default function ContactSection({ email: authorEmail, socialLinks }: Cont
       command: `$ mail ${email}`,
       href: `mailto:${email}`,
       value: email,
+      color: "text-amber-600 dark:text-amber-500",
+      hoverColor: "group-hover:text-amber-500 dark:group-hover:text-amber-400",
+      borderHover: "hover:border-amber-500/50",
     },
     ...(twitterLink
       ? [
@@ -28,6 +31,9 @@ export default function ContactSection({ email: authorEmail, socialLinks }: Cont
             command: "$ open x.com",
             href: twitterLink,
             value: twitterLink.replace(/https?:\/\/(www\.)?(twitter\.com|x\.com)\//, "@"),
+            color: "text-green-700 dark:text-green-600",
+            hoverColor: "group-hover:text-green-500 dark:group-hover:text-green-400",
+            borderHover: "hover:border-green-500/50",
           },
         ]
       : []),
@@ -39,6 +45,9 @@ export default function ContactSection({ email: authorEmail, socialLinks }: Cont
             command: "$ open linkedin.com",
             href: linkedinLink,
             value: linkedinLink.replace(/https?:\/\/(www\.)?linkedin\.com\/in\//, "").replace(/\/$/, ""),
+            color: "text-cyan-600 dark:text-cyan-500",
+            hoverColor: "group-hover:text-cyan-500 dark:group-hover:text-cyan-400",
+            borderHover: "hover:border-cyan-500/50",
           },
         ]
       : []),
@@ -85,9 +94,9 @@ export default function ContactSection({ email: authorEmail, socialLinks }: Cont
                     href={channel.href}
                     target={channel.label === "email" ? undefined : "_blank"}
                     rel={channel.label === "email" ? undefined : "noopener noreferrer"}
-                    className="flex items-center gap-4 p-3 rounded border border-green-900/20 dark:border-green-900/30 hover:border-green-600/50 dark:hover:border-green-500/50 bg-gray-50 dark:bg-[#0d1a0d]/50 hover:bg-green-500/5 dark:hover:bg-green-500/5 transition-all group"
+                    className={`flex items-center gap-4 p-3 rounded border border-green-900/20 dark:border-green-900/30 ${channel.borderHover} bg-gray-50 dark:bg-[#0d1a0d]/50 hover:bg-green-500/5 dark:hover:bg-green-500/5 transition-all group`}
                   >
-                    <span className="text-green-700 dark:text-green-600 group-hover:text-green-500 dark:group-hover:text-green-400 transition-colors">
+                    <span className={`${channel.color} ${channel.hoverColor} transition-colors`}>
                       {channel.icon}
                     </span>
                     <div className="flex-grow min-w-0">

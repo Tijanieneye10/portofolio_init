@@ -19,7 +19,7 @@ export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-green-900/30 dark:border-green-900/30 bg-white/95 dark:bg-[#050a05]/95 backdrop-blur-sm">
+    <header className="sticky top-0 z-50 w-full border-b border-green-800/20 dark:border-green-900/30 bg-[#f5f5f0]/95 dark:bg-[#050a05]/95 backdrop-blur-sm">
       <div className="container mx-auto px-4 h-14 flex items-center justify-between font-mono">
         <Link href="/" className="text-lg font-bold text-green-700 dark:text-green-400 text-glow-sm hover:text-green-600 dark:hover:text-green-300 transition-colors">
           <span className="text-green-500/60 dark:text-green-600">visitor@</span>tj<span className="cursor-blink text-green-400">_</span>
@@ -33,7 +33,7 @@ export default function Header() {
               href={item.path}
               className={`relative text-sm px-3 py-1.5 rounded transition-all ${
                 pathname === item.path
-                  ? "text-green-400 bg-green-400/10 text-glow-sm"
+                  ? "text-cyan-500 dark:text-cyan-400 bg-cyan-400/10 text-glow-cyan"
                   : "text-green-700 dark:text-green-600 hover:text-green-500 dark:hover:text-green-400 hover:bg-green-400/5"
               }`}
             >
@@ -41,7 +41,7 @@ export default function Header() {
               {pathname === item.path && (
                 <motion.div
                   layoutId="underline"
-                  className="absolute bottom-0 left-0 right-0 h-[1px] bg-green-500 dark:bg-green-400"
+                  className="absolute bottom-0 left-0 right-0 h-[1px] bg-cyan-500 dark:bg-cyan-400"
                 />
               )}
             </Link>
@@ -70,7 +70,7 @@ export default function Header() {
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -10 }}
-          className="md:hidden absolute top-14 left-0 w-full bg-white dark:bg-[#050a05] border-b border-green-900/30"
+          className="md:hidden absolute top-14 left-0 w-full bg-[#f5f5f0] dark:bg-[#050a05] border-b border-green-800/20 dark:border-green-900/30"
         >
           <nav className="flex flex-col p-4 gap-1 font-mono">
             {navItems.map((item) => (
@@ -80,7 +80,7 @@ export default function Header() {
                 onClick={() => setIsOpen(false)}
                 className={`text-sm px-3 py-2 rounded ${
                   pathname === item.path
-                    ? "text-green-400 bg-green-400/10 text-glow-sm"
+                    ? "text-cyan-500 dark:text-cyan-400 bg-cyan-400/10"
                     : "text-green-700 dark:text-green-600 hover:text-green-400 hover:bg-green-400/5"
                 }`}
               >

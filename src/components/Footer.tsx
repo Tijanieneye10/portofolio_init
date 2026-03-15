@@ -7,7 +7,7 @@ interface FooterProps {
 
 export default function Footer({ socialLinks }: FooterProps) {
   return (
-    <footer className="border-t border-green-900/30 dark:border-green-900/30 bg-gray-50 dark:bg-[#050a05] mt-auto font-mono">
+    <footer className="border-t border-green-800/20 dark:border-green-900/30 bg-[#f0f0ea] dark:bg-[#050a05] mt-auto font-mono">
       <div className="container mx-auto px-4 py-6">
         <div className="flex flex-col md:flex-row justify-between items-center gap-4">
           <div className="text-xs text-green-700 dark:text-green-700">

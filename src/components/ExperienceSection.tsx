@@ -42,7 +42,7 @@ export default function ExperienceSection({ experiences }: { experiences: Experi
               <div className="text-[10px] text-green-600 dark:text-green-700 mb-3">
                 commit {Math.random().toString(16).slice(2, 9)}
                 {experience.current && (
-                  <span className="ml-2 text-green-500 dark:text-green-400">(HEAD)</span>
+                  <span className="ml-2 text-cyan-500 dark:text-cyan-400">(HEAD)</span>
                 )}
               </div>
 
@@ -68,7 +68,7 @@ export default function ExperienceSection({ experiences }: { experiences: Experi
                   </div>
                 </div>
 
-                <div className="text-[10px] text-green-700 dark:text-green-700 whitespace-nowrap bg-green-500/5 dark:bg-green-500/10 px-2 py-1 rounded border border-green-900/20 self-start">
+                <div className="text-[10px] text-amber-700 dark:text-amber-500 whitespace-nowrap bg-amber-500/5 dark:bg-amber-500/10 px-2 py-1 rounded border border-amber-900/20 dark:border-amber-900/30 self-start">
                   {new Date(experience.startDate).toLocaleDateString("en-US", {
                     month: "short",
                     year: "numeric",

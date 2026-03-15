@@ -32,8 +32,8 @@ export default function TestimonialsSection({ testimonials }: { testimonials: Te
               key={testimonial._id}
               className="rounded-lg border border-green-900/30 dark:border-green-900/40 bg-gray-50 dark:bg-[#0a0f0a] p-6 hover:border-green-600/50 dark:hover:border-green-500/50 transition-all font-mono"
             >
-              <div className="text-green-600 dark:text-green-700 text-[10px] mb-4">
-                [{String(index).padStart(3, "0")}] {new Date().toISOString().split("T")[0]} INFO
+              <div className="text-[10px] mb-4">
+                <span className="text-amber-600 dark:text-amber-500">[{String(index).padStart(3, "0")}]</span> <span className="text-green-600 dark:text-green-700">{new Date().toISOString().split("T")[0]}</span> <span className="text-cyan-600 dark:text-cyan-500">INFO</span>
               </div>
 
               <p className="text-sm text-green-800/80 dark:text-green-500/80 mb-6 leading-relaxed">

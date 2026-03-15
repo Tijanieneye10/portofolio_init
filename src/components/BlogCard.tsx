@@ -61,7 +61,7 @@ export default function BlogCard({ post }: PostProps) {
             {post.tags?.slice(0, 2).map((tag) => (
               <span
                 key={tag}
-                className="text-[10px] font-mono text-green-600 dark:text-green-600 uppercase tracking-wider"
+                className="text-[10px] font-mono text-amber-600 dark:text-amber-500 uppercase tracking-wider"
               >
                 #{tag}
               </span>
@@ -78,7 +78,7 @@ export default function BlogCard({ post }: PostProps) {
 
           <div className="flex justify-between items-center text-[10px] text-green-700 dark:text-green-700 mt-auto pt-3 border-t border-green-900/20">
             <span>{dateStr}</span>
-            <span className="text-green-600 dark:text-green-600">
+            <span className="text-cyan-600 dark:text-cyan-500">
               $ cat &rarr;
             </span>
           </div>

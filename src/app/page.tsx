@@ -35,17 +35,17 @@ export default async function Home() {
         </div>
         <div className="grid grid-cols-2 md:grid-cols-5 gap-3 max-w-5xl mx-auto font-mono">
           {[
-            { name: "PHP & Laravel", icon: "⟨/⟩" },
-            { name: "Go (Golang)", icon: "λ" },
-            { name: "Python", icon: "py" },
-            { name: "DevOps & Cloud", icon: "☁" },
-            { name: "Agentic AI", icon: "◈" },
+            { name: "PHP & Laravel", icon: "⟨/⟩", color: "text-orange-500 dark:text-orange-400", border: "hover:border-orange-500/50" },
+            { name: "Go (Golang)", icon: "λ", color: "text-cyan-500 dark:text-cyan-400", border: "hover:border-cyan-500/50" },
+            { name: "Python", icon: "py", color: "text-yellow-500 dark:text-yellow-400", border: "hover:border-yellow-500/50" },
+            { name: "DevOps & Cloud", icon: "☁", color: "text-blue-500 dark:text-blue-400", border: "hover:border-blue-500/50" },
+            { name: "Agentic AI", icon: "◈", color: "text-purple-500 dark:text-purple-400", border: "hover:border-purple-500/50" },
           ].map((tech) => (
             <div
               key={tech.name}
-              className="flex flex-col items-center gap-2 p-4 rounded-lg border border-green-900/30 dark:border-green-900/40 bg-gray-50 dark:bg-[#0a0f0a] hover:border-green-600/50 dark:hover:border-green-500/50 transition-all group"
+              className={`flex flex-col items-center gap-2 p-4 rounded-lg border border-green-900/30 dark:border-green-900/40 bg-gray-50 dark:bg-[#0a0f0a] ${tech.border} transition-all group`}
             >
-              <span className="text-2xl text-green-600 dark:text-green-500 group-hover:text-glow-sm transition-all">
+              <span className={`text-2xl ${tech.color} transition-all`}>
                 {tech.icon}
               </span>
               <span className="text-xs text-green-800 dark:text-green-500 text-center">
@@ -69,7 +69,7 @@ export default async function Home() {
           </div>
           <Link
             href="/projects"
-            className="text-xs text-green-700 dark:text-green-600 hover:text-green-500 dark:hover:text-green-400 transition-colors border-b border-green-900/30 hover:border-green-500/50 pb-0.5"
+            className="text-xs text-cyan-700 dark:text-cyan-600 hover:text-cyan-500 dark:hover:text-cyan-400 transition-colors border-b border-cyan-900/30 hover:border-cyan-500/50 pb-0.5"
           >
             $ ls -la &rarr;
           </Link>
@@ -101,7 +101,7 @@ export default async function Home() {
           </div>
           <Link
             href="/blog"
-            className="text-xs text-green-700 dark:text-green-600 hover:text-green-500 dark:hover:text-green-400 transition-colors border-b border-green-900/30 hover:border-green-500/50 pb-0.5"
+            className="text-xs text-cyan-700 dark:text-cyan-600 hover:text-cyan-500 dark:hover:text-cyan-400 transition-colors border-b border-cyan-900/30 hover:border-cyan-500/50 pb-0.5"
           >
             $ cat --all &rarr;
           </Link>
