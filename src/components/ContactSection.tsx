@@ -114,6 +114,23 @@ export default function ContactSection({ email: authorEmail, socialLinks }: Cont
                 ))}
               </div>
 
+              <div className="h-px bg-green-900/20" />
+
+              <div className="space-y-2">
+                <div className="text-green-600 dark:text-green-700 text-xs">
+                  <span className="text-green-500 dark:text-green-600">$</span> echo $STATUS
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="relative flex h-2.5 w-2.5">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
+                    <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-green-500" />
+                  </span>
+                  <span className="text-sm text-green-700 dark:text-green-400">
+                    Open to freelance, contract &amp; full-time opportunities
+                  </span>
+                </div>
+              </div>
+
               <div className="text-green-700 dark:text-green-700 text-xs pt-2">
                 <span className="text-green-500 dark:text-green-600">$</span> echo &quot;Looking forward to hearing from you.&quot;
                 <div className="text-green-800/60 dark:text-green-500/60 mt-1">

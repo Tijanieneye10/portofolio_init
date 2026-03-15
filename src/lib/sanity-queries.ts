@@ -8,7 +8,9 @@ export const postsQuery = groq`*[_type == "post" && defined(slug.current)] | ord
   publishedAt,
   excerpt,
   "author": author->name,
-  "tags": tags
+  "tags": tags,
+  "readingTime": round(length(pt::text(body)) / 5 / 200) + 1,
+  "readingTimeMarkdown": round(length(coalesce(content, "")) / 200) + 1
 }`;
 
 export const postQuery = groq`*[_type == "post" && slug.current == $slug][0] {

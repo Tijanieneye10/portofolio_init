@@ -22,6 +22,39 @@ export default async function Home() {
     <div className="space-y-20">
       <HeroSection author={author} />
 
+      {/* Stats Bar */}
+      <section className="font-mono">
+        <div className="rounded-lg border border-green-800/25 dark:border-green-900/40 bg-gray-50 dark:bg-[#0a0f0a] overflow-hidden">
+          <div className="flex items-center gap-2 px-4 py-2 bg-gray-100 dark:bg-[#0d1a0d] border-b border-green-900/20">
+            <div className="flex gap-1.5">
+              <div className="w-2 h-2 rounded-full bg-red-500/80" />
+              <div className="w-2 h-2 rounded-full bg-yellow-500/80" />
+              <div className="w-2 h-2 rounded-full bg-green-500/80" />
+            </div>
+            <span className="text-[10px] text-green-700 dark:text-green-700 ml-1">system — stats</span>
+          </div>
+          <div className="p-4 md:p-5 space-y-3">
+<div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              {[
+                { value: "6+", label: "years experience", color: "text-green-700 dark:text-green-400" },
+                { value: `${projects.length}+`, label: "projects shipped", color: "text-cyan-600 dark:text-cyan-400" },
+                { value: "5+", label: "industries served", color: "text-amber-600 dark:text-amber-400" },
+                { value: "1000s", label: "users impacted", color: "text-purple-600 dark:text-purple-400" },
+              ].map((stat) => (
+                <div key={stat.label} className="text-center md:text-left">
+                  <div className={`text-2xl md:text-3xl font-bold ${stat.color}`}>
+                    {stat.value}
+                  </div>
+                  <div className="text-[10px] text-green-800/50 dark:text-green-500/50 uppercase tracking-wider mt-1">
+                    {stat.label}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Tech Stack */}
       <section className="space-y-6">
         <div className="font-mono">

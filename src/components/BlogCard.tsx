@@ -11,6 +11,8 @@ interface PostProps {
     publishedAt: string;
     tags?: string[];
     author?: string;
+    readingTime?: number;
+    readingTimeMarkdown?: number;
   };
 }
 
@@ -20,6 +22,9 @@ export default function BlogCard({ post }: PostProps) {
     month: "short",
     day: "2-digit",
   });
+  const readMin = post.readingTimeMarkdown && post.readingTimeMarkdown > 1
+    ? post.readingTimeMarkdown
+    : post.readingTime || 1;
 
   return (
     <Link href={`/blog/${post.slug.current}`} className="group">
@@ -78,6 +83,7 @@ export default function BlogCard({ post }: PostProps) {
 
           <div className="flex justify-between items-center text-[10px] text-green-700 dark:text-green-700 mt-auto pt-3 border-t border-green-900/20">
             <span>{dateStr}</span>
+            <span className="text-amber-600 dark:text-amber-500">~{readMin} min read</span>
             <span className="text-cyan-600 dark:text-cyan-500">
               $ cat &rarr;
             </span>
