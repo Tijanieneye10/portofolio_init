@@ -59,7 +59,7 @@ export default function TestimonialsSection({ testimonials }: { testimonials: Te
                   <h4 className="font-bold text-green-800 dark:text-green-400 text-sm">
                     {testimonial.name}
                   </h4>
-                  <p className="text-[10px] text-green-700 dark:text-green-600">
+                  <p className="text-[10px] text-amber-600 dark:text-amber-400">
                     {testimonial.role} @ {testimonial.company}
                   </p>
                 </div>
