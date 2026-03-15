@@ -5,7 +5,6 @@ import Image from "next/image";
 import { urlFor } from "@/sanity/lib/image";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { FaArrowLeft } from "react-icons/fa";
 import ReactMarkdown from "react-markdown";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { dracula } from "react-syntax-highlighter/dist/esm/styles/prism";
@@ -17,47 +16,47 @@ interface PageProps {
   params: Promise<{ slug: string }>;
 }
 
-// Inline components to guarantee they are used
 const components: PortableTextComponents = {
   block: {
     h1: ({ children }) => (
-      <h1 className="text-3xl md:text-4xl font-bold my-6">{children}</h1>
+      <h1 className="text-3xl md:text-4xl font-bold my-6 text-green-800 dark:text-green-400 font-mono">{children}</h1>
     ),
     h2: ({ children }) => (
-      <h2 className="text-2xl md:text-3xl font-bold my-5">{children}</h2>
+      <h2 className="text-2xl md:text-3xl font-bold my-5 text-green-800 dark:text-green-400 font-mono">{children}</h2>
     ),
     h3: ({ children }) => (
-      <h3 className="text-xl md:text-2xl font-bold my-4">{children}</h3>
+      <h3 className="text-xl md:text-2xl font-bold my-4 text-green-800 dark:text-green-400 font-mono">{children}</h3>
     ),
     normal: ({ children }) => (
-      <p className="mb-4 leading-relaxed text-gray-700 dark:text-gray-300">
+      <p className="mb-4 leading-relaxed text-green-800/80 dark:text-green-500/80">
         {children}
       </p>
     ),
     blockquote: ({ children }) => (
-      <blockquote className="border-l-4 border-blue-500 pl-4 italic my-6 bg-gray-50 dark:bg-gray-800 py-2 rounded-r">
+      <blockquote className="border-l-2 border-green-600 pl-4 italic my-6 bg-green-500/5 dark:bg-green-500/10 py-2 rounded-r font-mono text-sm">
         {children}
       </blockquote>
     ),
   },
   list: {
     bullet: ({ children }) => (
-      <ul className="list-disc ml-6 mb-4 space-y-2">{children}</ul>
+      <ul className="ml-6 mb-4 space-y-2 list-none [&>li]:before:content-['→_'] [&>li]:before:text-green-600">{children}</ul>
     ),
     number: ({ children }) => (
-      <ol className="list-decimal ml-6 mb-4 space-y-2">{children}</ol>
+      <ol className="list-decimal ml-6 mb-4 space-y-2 marker:text-green-600">{children}</ol>
     ),
   },
   types: {
     image: ({ value }) => {
       return (
-        <div className="relative w-full h-96 my-8 rounded-lg overflow-hidden">
+        <div className="relative w-full h-96 my-8 rounded-lg overflow-hidden border border-green-900/30">
           <Image
             src={urlFor(value).url()}
             alt={value.alt || "Image"}
             fill
             className="object-cover"
           />
+          <div className="absolute inset-0 bg-green-500/5 mix-blend-overlay pointer-events-none" />
         </div>
       );
     },
@@ -69,14 +68,14 @@ const components: PortableTextComponents = {
           href={value.href}
           target="_blank"
           rel="noopener noreferrer"
-          className="text-blue-600 hover:underline"
+          className="underline decoration-green-600 hover:decoration-green-400 text-green-700 dark:text-green-400"
         >
           {children}
         </a>
       );
     },
     code: ({ children }) => (
-      <code className="bg-gray-100 dark:bg-gray-800 px-1.5 py-0.5 rounded text-sm font-mono text-red-600 dark:text-red-400">
+      <code className="px-1.5 py-0.5 rounded bg-green-500/10 text-green-700 dark:text-green-400 font-mono text-sm border border-green-900/20">
         {children}
       </code>
     ),
@@ -95,9 +94,7 @@ export async function generateMetadata({ params }: PageProps) {
   const post = await client.fetch(postQuery, { slug });
 
   if (!post) {
-    return {
-      title: "Post Not Found",
-    };
+    return { title: "Post Not Found" };
   }
 
   const ogImage = post.mainImage
@@ -105,7 +102,7 @@ export async function generateMetadata({ params }: PageProps) {
     : null;
 
   return {
-    title: `${post.title} - Portfolio Blog`,
+    title: `${post.title} - TJ Blog`,
     description: post.excerpt,
     openGraph: {
       title: post.title,
@@ -113,16 +110,7 @@ export async function generateMetadata({ params }: PageProps) {
       type: "article",
       publishedTime: post.publishedAt,
       authors: [post.author?.name || "Unknown Author"],
-      images: ogImage
-        ? [
-            {
-              url: ogImage,
-              width: 1200,
-              height: 630,
-              alt: post.title,
-            },
-          ]
-        : undefined,
+      images: ogImage ? [{ url: ogImage, width: 1200, height: 630, alt: post.title }] : undefined,
     },
     twitter: {
       card: "summary_large_image",
@@ -142,33 +130,33 @@ export default async function BlogPostPage({ params }: PageProps) {
   }
 
   return (
-    <article className="max-w-3xl mx-auto py-8 px-4">
+    <article className="max-w-3xl mx-auto py-8 px-4 font-mono">
       <Link
         href="/blog"
-        className="inline-flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 mb-8 transition-colors"
+        className="inline-flex items-center gap-2 text-green-700 dark:text-green-600 hover:text-green-500 dark:hover:text-green-400 mb-8 transition-colors text-sm"
       >
-        <FaArrowLeft /> Back to Blog
+        <span>$</span> cd ../blog
       </Link>
 
-      <header className="mb-10 space-y-6">
+      <header className="mb-10 space-y-5">
         <div className="flex gap-2">
           {post.tags?.map((tag: string) => (
             <span
               key={tag}
-              className="px-3 py-1 text-sm font-medium bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-full"
+              className="px-2 py-0.5 text-[10px] font-mono bg-green-500/10 text-green-700 dark:text-green-500 rounded border border-green-900/20"
             >
-              {tag}
+              #{tag}
             </span>
           ))}
         </div>
 
-        <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white leading-tight">
+        <h1 className="text-3xl md:text-4xl font-bold text-green-800 dark:text-green-400 text-glow leading-tight">
           {post.title}
         </h1>
 
-        <div className="flex items-center gap-4 text-gray-600 dark:text-gray-400">
+        <div className="flex items-center gap-4 text-green-700 dark:text-green-700 text-xs border-b border-green-900/20 pb-4">
           {post.author?.image && (
-            <div className="relative w-10 h-10 rounded-full overflow-hidden">
+            <div className="relative w-8 h-8 rounded-full overflow-hidden border border-green-900/30">
               <Image
                 src={urlFor(post.author.image).url()}
                 alt={post.author.name}
@@ -177,8 +165,8 @@ export default async function BlogPostPage({ params }: PageProps) {
               />
             </div>
           )}
-          <div className="text-sm">
-            <p className="font-medium text-gray-900 dark:text-white">
+          <div>
+            <p className="text-green-800 dark:text-green-500 text-sm">
               {post.author?.name || "Unknown Author"}
             </p>
             <p>
@@ -193,7 +181,7 @@ export default async function BlogPostPage({ params }: PageProps) {
       </header>
 
       {post.mainImage && (
-        <div className="relative w-full h-[400px] mb-10 rounded-xl overflow-hidden">
+        <div className="relative w-full h-[400px] mb-10 rounded-lg overflow-hidden border border-green-900/30">
           <Image
             src={urlFor(post.mainImage).url()}
             alt={post.title}
@@ -201,13 +189,13 @@ export default async function BlogPostPage({ params }: PageProps) {
             className="object-cover"
             priority
           />
+          <div className="absolute inset-0 bg-green-500/5 mix-blend-overlay pointer-events-none" />
         </div>
       )}
 
-      {/* Main Content Area */}
       <div className="mt-8">
         {post.content ? (
-          <div className="prose dark:prose-invert max-w-none">
+          <div className="prose dark:prose-invert max-w-none prose-headings:text-green-800 dark:prose-headings:text-green-400 prose-headings:font-mono prose-p:text-green-800/80 dark:prose-p:text-green-500/80 prose-a:text-green-700 dark:prose-a:text-green-400 prose-strong:text-green-800 dark:prose-strong:text-green-400 prose-code:text-green-700 dark:prose-code:text-green-400 prose-code:bg-green-500/10 prose-code:border prose-code:border-green-900/20 prose-code:rounded prose-code:px-1">
             <ReactMarkdown
               components={{
                 code({

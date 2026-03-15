@@ -6,40 +6,41 @@ export const RichTextComponents: PortableTextComponents = {
   types: {
     image: ({ value }: any) => {
       return (
-        <div className="relative w-full h-96 my-10 rounded-lg overflow-hidden">
+        <div className="relative w-full h-96 my-8 rounded-lg overflow-hidden border border-green-900/30">
           <Image
             src={urlFor(value).url()}
             alt={value.alt || "Blog Image"}
             fill
             className="object-cover"
           />
+          <div className="absolute inset-0 bg-green-500/5 mix-blend-overlay pointer-events-none" />
         </div>
       );
     },
   },
   list: {
     bullet: ({ children }: any) => (
-      <ul className="ml-10 py-5 list-disc space-y-2">{children}</ul>
+      <ul className="ml-6 py-4 space-y-2 list-none [&>li]:before:content-['→_'] [&>li]:before:text-green-600">{children}</ul>
     ),
     number: ({ children }: any) => (
-      <ol className="mt-lg list-decimal">{children}</ol>
+      <ol className="mt-4 ml-6 list-decimal marker:text-green-600">{children}</ol>
     ),
   },
   block: {
     h1: ({ children }: any) => (
-      <h1 className="text-4xl py-10 font-bold">{children}</h1>
+      <h1 className="text-3xl py-6 font-bold text-green-800 dark:text-green-400 font-mono">{children}</h1>
     ),
     h2: ({ children }: any) => (
-      <h2 className="text-3xl py-10 font-bold">{children}</h2>
+      <h2 className="text-2xl py-6 font-bold text-green-800 dark:text-green-400 font-mono">{children}</h2>
     ),
     h3: ({ children }: any) => (
-      <h3 className="text-2xl py-10 font-bold">{children}</h3>
+      <h3 className="text-xl py-4 font-bold text-green-800 dark:text-green-400 font-mono">{children}</h3>
     ),
     h4: ({ children }: any) => (
-      <h4 className="text-xl py-10 font-bold">{children}</h4>
+      <h4 className="text-lg py-4 font-bold text-green-800 dark:text-green-400 font-mono">{children}</h4>
     ),
     blockquote: ({ children }: any) => (
-      <blockquote className="border-l-4 border-blue-500 pl-5 py-5 my-5 bg-gray-100 dark:bg-gray-800 rounded-r-lg italic">
+      <blockquote className="border-l-2 border-green-600 pl-5 py-4 my-5 bg-green-500/5 dark:bg-green-500/10 rounded-r-lg font-mono text-sm text-green-800/80 dark:text-green-500/80">
         {children}
       </blockquote>
     ),
@@ -53,17 +54,16 @@ export const RichTextComponents: PortableTextComponents = {
         <a
           href={value.href}
           rel={rel}
-          className="underline decoration-blue-500 hover:decoration-black dark:hover:decoration-white text-blue-500 font-bold"
+          className="underline decoration-green-600 hover:decoration-green-400 text-green-700 dark:text-green-400 font-medium"
         >
           {children}
         </a>
       );
     },
+    code: ({ children }: any) => (
+      <code className="px-1.5 py-0.5 rounded bg-green-500/10 text-green-700 dark:text-green-400 font-mono text-sm border border-green-900/20">
+        {children}
+      </code>
+    ),
   },
 };
-
-
-
-
-
-

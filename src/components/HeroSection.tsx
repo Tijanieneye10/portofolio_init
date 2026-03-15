@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { urlFor } from "@/sanity/lib/image";
-import { FaGithub, FaLinkedin, FaTwitter } from "react-icons/fa";
+import TypingEffect from "./TypingEffect";
 
 interface HeroSectionProps {
   author?: {
@@ -16,57 +16,103 @@ interface HeroSectionProps {
 }
 
 export default function HeroSection({ author }: HeroSectionProps) {
+  const firstName = author?.name?.split(" ")[0] || "Developer";
+
   return (
-    <section className="min-h-[80vh] flex items-center justify-between py-12 md:py-24">
-      <div className="container mx-auto grid md:grid-cols-2 gap-12 items-center">
-        {/* Left Column: Text Content */}
+    <section className="flex items-center py-8 md:py-14">
+      <div className="container mx-auto grid md:grid-cols-[65fr_35fr] gap-10">
+        {/* Left Column: Terminal Content */}
         <motion.div
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="space-y-6 text-left order-2 md:order-1"
+          className="order-2 md:order-1 h-full"
         >
-          
-          <h1 className="text-5xl md:text-7xl font-bold tracking-tight text-gray-900 dark:text-white leading-tight">
-            Hi, I'm <span className="text-blue-600 dark:text-blue-400">{author?.name?.split(' ')[0] || "Developer"}</span>.
-            <br />
-            I build software solutions.
-          </h1>
-          
-          <p className="text-xl text-gray-600 dark:text-gray-400 max-w-lg leading-relaxed">
-            {author?.title || "Software Engineer & DevOps Specialist"} passionate about writing clean, maintainable code and building software that’s both reliable and performant.
-          </p>
-          
-          <div className="flex items-center gap-4 pt-4">
-            <Link
-              href="/projects"
-              className="px-8 py-3.5 rounded-lg bg-blue-600 text-white font-medium hover:bg-blue-700 transition-all shadow-lg hover:shadow-blue-500/25"
-            >
-              View Work
-            </Link>
-            <Link
-              href="/about"
-              className="px-8 py-3.5 rounded-lg border border-gray-300 dark:border-gray-700 hover:border-gray-400 dark:hover:border-gray-600 transition-all"
-            >
-              About Me
-            </Link>
+          <div className="rounded-lg border border-green-800/25 dark:border-green-900/40 bg-gray-50 dark:bg-[#0a0f0a] overflow-hidden h-full flex flex-col">
+            {/* Title bar */}
+            <div className="flex items-center gap-2 px-4 py-2 bg-gray-100 dark:bg-[#0d1a0d] border-b border-green-900/20">
+              <div className="flex gap-1.5">
+                <div className="w-2.5 h-2.5 rounded-full bg-red-500/80" />
+                <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/80" />
+                <div className="w-2.5 h-2.5 rounded-full bg-green-500/80" />
+              </div>
+              <span className="text-[10px] text-green-700 dark:text-green-700 font-mono ml-2">
+                {firstName.toLowerCase()}@portfolio ~ %
+              </span>
+            </div>
+
+            {/* Terminal content */}
+            <div className="p-5 md:p-6 font-mono space-y-3 flex-grow flex flex-col justify-center">
+              <div className="text-green-700 dark:text-green-600 text-sm">
+                <span className="text-green-600 dark:text-green-700">$</span> whoami
+              </div>
+              <h1 className="text-3xl md:text-5xl font-bold text-green-800 dark:text-green-400 text-glow leading-tight">
+                {author?.name || "Developer"}
+              </h1>
+
+              <div className="text-green-700 dark:text-green-600 text-sm mt-4">
+                <span className="text-green-600 dark:text-green-700">$</span> cat role.txt
+              </div>
+              <p className="text-lg text-amber-600 dark:text-amber-400 text-glow-amber">
+                <TypingEffect
+                  texts={[
+                    author?.title || "Software Engineer",
+                    "Solution Architect",
+                    "DevOps Specialist",
+                    "Strategist",
+                  ]}
+                  speed={60}
+                  pauseDuration={2500}
+                />
+              </p>
+
+              <div className="text-green-700 dark:text-green-600 text-sm mt-4">
+                <span className="text-green-600 dark:text-green-700">$</span> cat mission.txt
+              </div>
+              <p className="text-sm md:text-base text-green-800/80 dark:text-green-500/80 leading-relaxed max-w-lg">
+                Passionate about building scalable systems, architecting robust
+                solutions, and shipping software that&apos;s reliable, performant,
+                and built to last.
+              </p>
+
+              <div className="flex items-center gap-3 pt-4">
+                <Link
+                  href="/projects"
+                  className="px-5 py-2.5 rounded border border-green-600 dark:border-green-500 text-green-700 dark:text-green-400 font-mono text-sm hover:bg-green-500/10 transition-all text-glow-sm"
+                >
+                  $ ls projects/
+                </Link>
+                <Link
+                  href="/about"
+                  className="px-5 py-2.5 rounded border border-green-900/30 dark:border-green-900/40 text-green-800 dark:text-green-600 font-mono text-sm hover:border-green-600 hover:text-green-700 dark:hover:text-green-400 transition-all"
+                >
+                  $ cat about.md
+                </Link>
+              </div>
+            </div>
           </div>
         </motion.div>
 
-        {/* Right Column: Image */}
+        {/* Right Column: Profile Image styled as terminal */}
         <motion.div
-          initial={{ opacity: 0, x: 20 }}
-          animate={{ opacity: 1, x: 0 }}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.2 }}
-          className="relative block order-1 md:order-2"
+          className="relative order-1 md:order-2 h-full"
         >
-          <div className="relative w-full max-w-[300px] md:max-w-[400px] aspect-square md:aspect-[4/5] mx-auto">
-            {/* Decorative background element */}
-            <div className="absolute inset-0 bg-gradient-to-tr from-blue-600 to-cyan-400 rounded-full md:rounded-2xl transform rotate-6 opacity-20 blur-lg"></div>
-            <div className="absolute inset-0 bg-gray-200 dark:bg-gray-800 rounded-full md:rounded-2xl transform -rotate-3"></div>
-            
-            {/* Main Image Container */}
-            <div className="relative w-full h-full rounded-full md:rounded-xl overflow-hidden shadow-2xl bg-white dark:bg-gray-900 md:mt-8 border-4 border-white dark:border-gray-800 md:border-0">
+          <div className="rounded-lg border border-green-800/25 dark:border-green-900/40 overflow-hidden bg-gray-50 dark:bg-[#0a0f0a] h-full flex flex-col">
+            {/* Image title bar */}
+            <div className="flex items-center gap-2 px-3 py-1.5 bg-gray-100 dark:bg-[#0d1a0d] border-b border-green-900/20">
+              <div className="flex gap-1.5">
+                <div className="w-2 h-2 rounded-full bg-red-500/80" />
+                <div className="w-2 h-2 rounded-full bg-yellow-500/80" />
+                <div className="w-2 h-2 rounded-full bg-green-500/80" />
+              </div>
+              <span className="text-[10px] text-green-700 dark:text-green-700 font-mono ml-1">
+                profile.jpg
+              </span>
+            </div>
+            <div className="relative flex-grow min-h-[60vh]">
               {author?.image ? (
                 <Image
                   src={urlFor(author.image).url()}
@@ -76,12 +122,15 @@ export default function HeroSection({ author }: HeroSectionProps) {
                   priority
                 />
               ) : (
-                <div className="w-full h-full flex items-center justify-center bg-gray-100 dark:bg-gray-800">
-                  <span className="text-gray-400">Add profile image in Sanity</span>
+                <div className="w-full h-full flex items-center justify-center bg-gray-100 dark:bg-[#0a0f0a] font-mono text-green-600 text-sm">
+                  <span>[ no image loaded ]</span>
                 </div>
               )}
+              <div className="absolute inset-0 bg-green-500/5 mix-blend-overlay pointer-events-none" />
             </div>
           </div>
+          {/* Decorative glow */}
+          <div className="absolute -inset-1 bg-green-500/10 rounded-lg blur-xl -z-10" />
         </motion.div>
       </div>
     </section>

@@ -2,40 +2,26 @@
 
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
-import { IoMoon, IoSunny } from "react-icons/io5";
 
 export default function ThemeToggle() {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
-  // Prevent hydration mismatch
   useEffect(() => {
     setMounted(true);
   }, []);
 
   if (!mounted) {
-    return <div className="w-9 h-9" />; // Placeholder to prevent layout shift
+    return <div className="w-8 h-8" />;
   }
 
   return (
     <button
       onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-      className="p-2 rounded-full bg-gray-200 dark:bg-gray-800 hover:bg-gray-300 dark:hover:bg-gray-700 transition-colors"
+      className="px-2 py-1 rounded border border-green-900/30 text-[10px] font-mono text-green-700 dark:text-green-600 hover:text-green-500 dark:hover:text-green-400 hover:border-green-600/50 transition-all"
       aria-label="Toggle theme"
     >
-      {theme === "dark" ? (
-        <IoSunny className="w-5 h-5 text-yellow-500" />
-      ) : (
-        <IoMoon className="w-5 h-5 text-gray-700" />
-      )}
+      {theme === "dark" ? "[ light ]" : "[ dark ]"}
     </button>
   );
 }
-
-
-
-
-
-
-
-
